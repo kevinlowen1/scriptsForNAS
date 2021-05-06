@@ -1,0 +1,5 @@
+this works for a docker install to link a library to your gallery:
+`ln -s /pictures/2020 /config/www/gallery/galleries/photos/2020`
+
+This does not work:
+`ln -s /pictures/2020 /config/www/gallery/galleries/2020`
