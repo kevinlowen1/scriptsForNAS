@@ -43,6 +43,19 @@ sudo find /srv/dev-disk-by-uuid-6cbdec99-cc91-425c-8193-d1dee65a6fde/ -name "._.
 sudo find /srv/dev-disk-by-uuid-6cbdec99-cc91-425c-8193-d1dee65a6fde/ -type f -name "._*" -delete
 
 echo "---------------------"
+echo "testing for .img creation weekly"
+echo "$(date)"
+echo "---------------------"
+if [[ $(date -d "+1 day" +%m) != $(date +%m) ]]; then
+    echo "it is the last day of the month so making a creation of the .img of the OS"
+
+    dd if=/dev/sda of=/srv/dev-disk-by-uuid-39be272b-862f-4c14-9d45-ff35eeb5fa11/backups/computers/PI\ Backups/iso_backup/sd_card_backup_"`date +"%d-%m-%Y"`".img bs=1M
+
+    echo "monthly creation of the .img of the OS completed"
+fi
+
+
+echo "---------------------"
 echo "finished removing files from drives that are extra like ._DS_Store"
 echo "$(date)"
 echo "---------------------"
@@ -65,6 +78,7 @@ if [[ $(date +%u) -gt 6 ]]; then
     rsync -a --delete /srv/dev-disk-by-uuid-6cbdec99-cc91-425c-8193-d1dee65a6fde/ /srv/dev-disk-by-uuid-b90d6365-9ba6-455b-9728-814f8a462ce1/backup-dev-disk-by-uuid-6cbdec99-cc91-425c-8193-d1dee65a6fde
     echo "rsync completed for the 250GB SSD"
 fi
+
 
 
 echo "---------------------"
